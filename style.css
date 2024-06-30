@@ -81,12 +81,6 @@ table, th, td {
   border: none;
   font-size: 12px;
   font-weight: 700;
-}
-
-.close_field {
-  border: none;
-  font-size: 12px;
-  font-weight: 700;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -121,4 +115,24 @@ table, th, td {
 
 .product_name_remove:focus {
   outline: none;
+}
+
+@media (max-width: 720px) {
+  .container_list {
+    flex-direction: column;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .button_field legend {
+    display: none;
+  }
+
+  .container_add, .container_remove {
+    min-width: 80%;
+    /* max-width: 80%; */
+  }
 }

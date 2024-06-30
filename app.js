@@ -48,6 +48,11 @@ window.addEventListener('keydown', (event) => {
 function erase_placeholder() {
   document.getElementById('product_name').placeholder = '';
 }
+//close add/remove window
+function close_window() {
+  document.getElementById('container_add').style.display = 'none';
+  document.getElementById('container_remove').style.display = 'none';
+}
 
 // Show add product's board
 function showAdd() {
@@ -55,7 +60,7 @@ function showAdd() {
     <div class="informations">
       <fieldset class="close_field">
         <label class="close_button">Esc</label>
-        <button class="close_button">X</button>
+        <button class="close_button" onclick="close_window()">X</button>
       </fieldset>
       <label for="product_name">Product Name</label>
       <input type="text" name="product_name" id="product_name" placeholder="ctrl+m or tab" onfocus="erase_placeholder()">
@@ -73,6 +78,10 @@ function showAdd() {
     </div>
     `
   let add_board = document.getElementById('container_add');
+  let container_remove = document.getElementById('container_remove');
+  if(container_remove.style.display === 'flex') {
+    container_remove.style.display = 'none';
+  }
   add_board.style.display = 'flex';
 }
 
@@ -133,7 +142,7 @@ function showRemove() {
     <div class="informations">
       <fieldset class="close_field">
         <label class="close_button">Esc</label>
-        <button class="close_button">X</button>
+        <button class="close_button" onclick="close_window()">X</button>
       </fieldset>
       <fieldset>
         <label>Product Name:</label>
