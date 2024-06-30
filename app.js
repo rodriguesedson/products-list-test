@@ -50,8 +50,10 @@ function erase_placeholder() {
 }
 //close add/remove window
 function close_window() {
-  document.getElementById('container_add').style.display = 'none';
-  document.getElementById('container_remove').style.display = 'none';
+  let container_add = document.getElementById('container_add');
+  let container_remove = document.getElementById('container_remove');
+  container_add.style.display = 'none';
+  container_remove.style.display = 'none';
 }
 
 // Show add product's board
