@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Oak Tecnologia - Prova Experimental</title>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container_add" id="container_add"></div>
+  <div class="container_remove" id="container_remove"></div>
+
+  <div class="container_list" id="container_list">
+    <div class="buttons">
+      <fieldset class="button_field">
+        <legend>ctrl+alt+1</legend>
+        <button class="button" onclick="showAdd()" id="add_button">
+          Add Product
+        </button>
+      </fieldset>
+      <fieldset class="button_field">
+        <legend>ctrl+alt+2</legend>
+        <button class="button" onclick="listProducts()" id="list_button">
+          List Products
+        </button>
+      </fieldset>
+      <fieldset class="button_field">
+        <legend>ctrl+alt+3</legend>
+        <button class="button" onclick="showRemove()" id="remove_button">
+          Remove Product
+        </button>
+      </fieldset>
+    </div>
+
+    <table id="products_table"></table>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
