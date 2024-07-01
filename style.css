@@ -133,6 +133,5 @@ table, th, td {
 
   .container_add, .container_remove {
     min-width: 80%;
-    /* max-width: 80%; */
   }
 }

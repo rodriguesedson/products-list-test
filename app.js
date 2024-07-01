@@ -1,27 +1,38 @@
-//products list
-let list_products = [
-  {name:'apple', price:9.99},
-  {name:'avocado', price:9.99},
-  {name:'Pineapple', price:9.99}
-]
-
 //keyboard shortcuts
 //focus add button
 window.addEventListener('keydown', (event) => {
-  if(event.ctrlKey && event.altKey && event.key === '1') {
+  // if(event.ctrlKey && event.altKey && event.key === '1') {
+  //   document.getElementById('add_button').click();
+  // }
+  if(event.ctrlKey && event.altKey && event.code === 'Digit1') {
     document.getElementById('add_button').click();
   }
 })
 //focus list button
 window.addEventListener('keydown', (event) => {
-  if(event.ctrlKey && event.altKey && event.key === '2') {
+  // if(event.ctrlKey && event.altKey && event.key === '2') {
+  //   document.getElementById('list_button').click();
+  // }
+  if(event.ctrlKey && event.altKey && event.code === 'Digit2') {
     document.getElementById('list_button').click();
   }
 })
 //focus remove button
 window.addEventListener('keydown', (event) => {
-  if(event.ctrlKey && event.altKey && event.key === '3') {
+  // if(event.ctrlKey && event.altKey && event.key === '3') {
+  //   document.getElementById('remove_button').click();
+  // }
+  if(event.ctrlKey && event.altKey && event.code === 'Digit3') {
     document.getElementById('remove_button').click();
+  }
+})
+//clear list
+window.addEventListener('keydown', (event) => {
+  // if(event.ctrlKey && event.altKey && event.key === '3') {
+  //   document.getElementById('remove_button').click();
+  // }
+  if(event.ctrlKey && event.altKey && event.code === 'Digit4') {
+    document.getElementById('clear_button').click();
   }
 })
 //close add window
@@ -93,48 +104,43 @@ function save() {
   let product_description = document.getElementById('product_description').value;
   let product_price = document.getElementById('product_price').value;
   let new_item = {
-    name: product_name,
+    name: product_name.toLowerCase(),
     description: product_description,
     price: product_price.toString().slice(0, (product_price.indexOf('.')) + 3)
   };
   
-  list_products.push(new_item)
-  console.log(list_products) 
-  listProducts();
+  localStorage.setItem(new_item.name, JSON.stringify(new_item))
 
+  listProducts();
   document.getElementById('container_add').style.display = 'none';
 }
 
 //list products
 function listProducts() {
-  //get table
   let table = document.getElementById('products_table');
-  //create table's body
   let body = document.createElement('tbody');
-  //erase table before showing (prevent multiple tables if the button is pressed again)
+
   document.getElementById('products_table').innerHTML = ''
-  //insert columns' names
   document.getElementById('products_table').innerHTML = `
     <thead>
       <th width="200px">Name</th>
       <th width="200px">Price</th>
     </thead>
   `
-  let ordered_list = list_products.sort((a, b) => a.price - b.price);
-  //iterate through list
-  ordered_list.forEach(el => {
-    //create new item with name/price at row
-    let new_item = document.createElement('tr');
-    let new_name = document.createElement('td');
-    let new_price = document.createElement('td');
-    new_name.innerText = el.name;
-    new_price.innerText = el.price;
-    new_item.appendChild(new_name);
-    new_item.appendChild(new_price);
-    //insert new item in body
-    body.appendChild(new_item);
-  })
-  //insert body in table
+  // ********** PROCURAR COMO ORDENAR ITENS LOCALSTORAGE
+  for(const element in localStorage) {
+    let new_item = document.createElement('tr')
+    let new_name = document.createElement('td')
+    let new_price = document.createElement('td')
+
+    if(JSON.parse(localStorage.getItem(element)) != null) {
+      new_name.innerText = JSON.parse(localStorage.getItem(element)).name
+      new_price.innerText = JSON.parse(localStorage.getItem(element)).price
+      new_item.appendChild(new_name)
+      new_item.appendChild(new_price)
+      body.appendChild(new_item)
+    }
+  }
   table.appendChild(body);
 }
 
@@ -153,7 +159,7 @@ function showRemove() {
           name="product_name" 
           id="product_name" 
           class="product_name_remove" 
-          placeholder="ctrl+m or tab" 
+          placelist_products.spliceholder="ctrl+m or tab" 
           onfocus="erase_placeholder()"
         >
       </fieldset>
@@ -170,11 +176,19 @@ function showRemove() {
 
 function remove() {
   let product_name = document.getElementById('product_name').value.toLowerCase();
-  list_products.forEach(item => {
-    if (item.name === product_name) {
-      list_products.splice(list_products.indexOf(item), 1);
+  for(const element in localStorage) {
+    if(JSON.parse(localStorage.getItem(element)) != null) {
+      let item_to_remove = JSON.parse(localStorage.getItem(element)).name
+      if (item_to_remove === product_name) {
+        localStorage.removeItem(product_name)
+      }
     }
-  })
+  }
   document.getElementById('container_remove').style.display = 'none';
   listProducts();
+}
+
+function clearList() {
+  localStorage.clear();
+  listProducts(); 
 }
